@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>录音Demo</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <p>测试cordova录音插件，按下按钮后开始录音</p>
+  <ion-list>
+    <div *ngFor="let item of fileList" (click)="onItemClicked(item)" style="height:55px;padding: 10px 0px;border-bottom: 1px solid #bbb">
+      <div style="padding: 5dp;display: flex;align-items: center;justify-content: space-between">
+        <div style="font-size: 1.4rem; color: #333;">{{item.name}}</div>
+        <div style="font-size: 1.4rem; color: #666;">{{item.time}}</div>
+      </div> 
+      <div style="font-size: 1.2rem; color: #666;padding: 5px 0px;">{{item.path}}</div>
+    </div>
+  </ion-list>
+</ion-content>
+<ion-footer padding>
+  <button ion-button block color="primary" (click)="onBtnClicked()">{{btn_action_name}}</button>
+</ion-footer>
