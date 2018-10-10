@@ -67,41 +67,42 @@ export class HomePage {
     });
   }
 
-  onItemClicked(item: Entry) {
+  onItemClicked(item) {
     let alert = this.alertCtrl.create({
       title: '提示',
       subTitle: '请选择您的操作?',
       buttons: [
         {
-        text: '删除',
-        handler: data=> {
+          text: '删除',
+          handler: data => {
 
-          this.file.removeFile(this.filePath+'hank-test', item.name).then(result=>{
-            console.log('delete file:' + JSON.stringify(result));
-          }).catch(error=>{
-            console.log('get File list fail:' + JSON.stringify(error, Object.getOwnPropertyNames(error)));
-          });
-          this.getFileList();
-        }
-      },
-      {
-        text:'播放',
-        handler:data=>{
-          let filepath = item.nativeURL.replace(/^file:\/\//, '');
-          let mediaFile = this.media.create(filepath);
-          console.log('Play file:' + JSON.stringify(mediaFile));
-          mediaFile.onSuccess.subscribe(()=>{
-            console.log('file played:' + JSON.stringify(item.name));
-          })
-          mediaFile.play();
+            this.file.removeFile(this.filePath + 'hank-test', item.name).then(result => {
+              console.log('delete file:' + JSON.stringify(result));
+            }).catch(error => {
+              console.log('get File list fail:' + JSON.stringify(error, Object.getOwnPropertyNames(error)));
+            });
+            this.getFileList();
+          }
         },
-        role:'cancel'
-      },
+        {
+          text: '播放',
+          handler: data => {
+            console.log('file:' + JSON.stringify(item));
+            let filepath = item.path.replace(/^file:\/\//, '');
+            let mediaFile = this.media.create(filepath);
+            console.log('Play file:' + JSON.stringify(mediaFile));
+            mediaFile.onSuccess.subscribe(() => {
+              console.log('file played:' + JSON.stringify(item.name));
+            })
+            mediaFile.play();
+          },
+          role: 'cancel'
+        },
 
-      {
-        text: '取消',
-        role:'cancel'
-      }
+        {
+          text: '取消',
+          role: 'cancel'
+        }
       ]
     });
     alert.present();
